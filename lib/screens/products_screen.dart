@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'edit_product_screen.dart';
+import '../models/product_model.dart';
 
 class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final products = Provider.of<List<ProductModel>>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Products'),
@@ -20,6 +24,19 @@ class ProductsScreen extends StatelessWidget {
           ),
         ],
       ),
+      body: (products != null)
+          ? ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(products[index].name),
+                  trailing: Text('${products[index].price}'),
+                );
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }

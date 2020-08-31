@@ -16,4 +16,9 @@ class ProductModel {
       'name': name,
     };
   }
+
+  ProductModel.fromFirestore(Map<String, dynamic> firestore)
+      : productId = firestore['productId'],
+        name = firestore['name'],
+        price = firestore['price'];
 }
