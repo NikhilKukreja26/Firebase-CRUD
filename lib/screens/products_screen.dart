@@ -29,6 +29,15 @@ class ProductsScreen extends StatelessWidget {
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => EditProductScreen(
+                          products[index],
+                        ),
+                      ),
+                    );
+                  },
                   title: Text(products[index].name),
                   trailing: Text('${products[index].price}'),
                 );

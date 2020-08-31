@@ -28,12 +28,31 @@ class ProductsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void loadValues(ProductModel productModel) {
+    _name = productModel.name;
+    _price = productModel.price;
+    _productId = productModel.productId;
+  }
+
   void saveProduct() {
-    final productModel = ProductModel(
-      name: name,
-      price: price,
-      productId: uuid.v4(),
-    );
-    firebaseService.saveProduct(productModel);
+    if (_productId == null) {
+      final newProduct = ProductModel(
+        name: name,
+        price: price,
+        productId: uuid.v4(),
+      );
+      firebaseService.saveProduct(newProduct);
+    } else {
+      final updateProduct = ProductModel(
+        name: name,
+        price: price,
+        productId: _productId,
+      );
+      firebaseService.saveProduct(updateProduct);
+    }
+  }
+
+  void removeProduct(String productId) {
+    firebaseService.removeProduct(productId);
   }
 }

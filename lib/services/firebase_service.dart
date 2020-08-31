@@ -18,4 +18,8 @@ class FirebaseService {
         .map((document) => ProductModel.fromFirestore(document.data))
         .toList());
   }
+
+  Future<void> removeProduct(String productId) async {
+    await _db.collection('products').document(productId).delete();
+  }
 }
